@@ -12,10 +12,11 @@ namespace AllExtensions
     public partial class App : Application
     {
         public static IServiceProvider ServiceProvider { get; set; }
-        public App()
+
+        public App(IStartupPage startupPage)
         {
             InitializeComponent();
-            MainPage = ServiceProvider.GetService<MainPage>();
+            MainPage = (Page)startupPage;
         }
 
 

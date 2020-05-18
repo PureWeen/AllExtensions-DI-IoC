@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AllExtensions.View;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,11 @@ using Xamarin.Essentials;
 
 namespace AllExtensions
 {
+    public interface IStartupPage
+    {
+
+    }
+
     public static class Startup
     {
         public static App Init(Action<HostBuilderContext, IServiceCollection> nativeConfigureServices)
@@ -40,7 +46,6 @@ namespace AllExtensions
             return App.ServiceProvider.GetService<App>();
         }
 
-
         static void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
         {
             if (ctx.HostingEnvironment.IsDevelopment())
@@ -50,9 +55,11 @@ namespace AllExtensions
 
             services.AddHttpClient();
             services.AddTransient<IMainViewModel, MainViewModel>();
-            services.AddTransient<MainPage>();
+            services.AddTransient<IStartupPage, AppShell>();
             services.AddSingleton<App>();
-        }
 
+            services.RegisterRoute(typeof(MainPage));
+            services.RegisterRoute(typeof(SecondPage));
+        }
     }
 }

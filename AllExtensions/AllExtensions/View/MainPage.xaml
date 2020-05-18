@@ -7,6 +7,7 @@
 
     <StackLayout>
         <!--  Place new controls here  -->
+        <Button Text="Push me" Command="{Binding PushToSecondPage}"></Button>
         <Label
             HorizontalOptions="Center"
             Text="{Binding Hello}"
